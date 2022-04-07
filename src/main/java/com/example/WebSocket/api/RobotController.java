@@ -32,18 +32,18 @@ public class RobotController {
     }
 
     @GetMapping(path = "{id}")
-    public Robot getPersonById(@PathVariable("id") UUID id) {
+    public Robot getPersonById(@PathVariable("id") int id) {
         return robotService.getPersonById(id)
                 .orElse(null);
     }
 
     @DeleteMapping(path = "{id}")
-    public void deletePersonById(@PathVariable("id") UUID id){
+    public void deletePersonById(@PathVariable("id") int id){
         robotService.deletePerson(id);
     }
 
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id, @Validated @NonNull @RequestBody Robot robotToUpdate) {
+    public void updatePerson(@PathVariable("id") int id, @Validated @NonNull @RequestBody Robot robotToUpdate) {
         robotService.updatePerson(id, robotToUpdate);
     }
 }

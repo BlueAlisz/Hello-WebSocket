@@ -4,22 +4,22 @@ import com.example.WebSocket.model.Robot;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface RobotDao {
 
-    int insertPerson(UUID id, Robot robot);
+    int insertRobot(int id, Robot robot);
 
-    default int insertPerson(Robot robot) {
-        UUID id = UUID.randomUUID();
-        return insertPerson(id, robot);
+    default int insertRobot(Robot robot) {
+        int id = 0;
+        return insertRobot(id, robot);
     }
 
     List<Robot> selectAllRobot();
 
-    Optional<Robot> selectPersonById(UUID id);
+    Optional<Robot> selectRobotById(int id);
 
-    int deletePersonById(UUID id);
+    int deleteRobotById(int id);
 
-    int updatePersonById(UUID id, Robot robot);
+    int updateRobotById(int id, Robot robot);
 }
+

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class RobotService {
@@ -21,22 +20,22 @@ public class RobotService {
     }
 
     public int addPerson(Robot robot) {
-        return robotDao.insertPerson(robot);
+        return robotDao.insertRobot(robot);
     }
 
     public List<Robot> getAllPeople() {
         return robotDao.selectAllRobot();
     }
 
-    public Optional<Robot> getPersonById(UUID id) {
-        return robotDao.selectPersonById(id);
+    public Optional<Robot> getPersonById(int id) {
+        return robotDao.selectRobotById(id);
     }
 
-    public int deletePerson(UUID id) {
-        return robotDao.deletePersonById(id);
+    public int deletePerson(int id) {
+        return robotDao.deleteRobotById(id);
     }
 
-    public int updatePerson(UUID id, Robot newRobot) {
-        return robotDao.updatePersonById(id, newRobot);
+    public int updatePerson(int id, Robot newRobot) {
+        return robotDao.updateRobotById(id, newRobot);
     }
 }

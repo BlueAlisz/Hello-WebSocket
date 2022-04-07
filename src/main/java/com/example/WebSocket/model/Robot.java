@@ -10,22 +10,36 @@ import java.util.UUID;
 @Table(name = "person")
 public class Robot {
     @Id
-    private final UUID id;
+    private final int id;
     @Column(name = "name")
 
     private final String name;
+    private final int hp;
+    private final int attack;
 
-    public Robot(@JsonProperty("id") UUID id,
-                 @JsonProperty("name") String name) {
+    public Robot(@JsonProperty("id") int id,
+                 @JsonProperty("name") String name,
+                 @JsonProperty("hp") int hp,
+                 @JsonProperty("attack") int attack) {
         this.id = id;
         this.name = name;
+        this.hp = hp;
+        this.attack = attack;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getAttck() {
+        return attack;
     }
 }

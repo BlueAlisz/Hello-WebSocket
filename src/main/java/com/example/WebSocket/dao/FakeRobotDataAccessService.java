@@ -6,16 +6,18 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository("fakeDao")
 public class FakeRobotDataAccessService implements RobotDao {
 
     private static List<Robot> DB = new ArrayList<>();
+    int count = 0;
 
     @Override
-    public int insertPerson(UUID id, Robot robot) {
-        DB.add(new Robot(id, robot.getName()));
+    public int insertRobot(int id, Robot robot) {
+        count++;
+        id = count;
+        DB.add(new Robot(id, robot.getName(),robot.getHp(),robot.getAttck()));
         return 1;
     }
 
@@ -25,15 +27,15 @@ public class FakeRobotDataAccessService implements RobotDao {
     }
 
     @Override //Optional เอามาใช้ในการจัดการกับ NullPointerExceptions
-    public Optional<Robot> selectPersonById(UUID id) {
+    public Optional<Robot> selectRobotById(int id) {
         return DB.stream()
-                .filter(robot -> robot.getId().equals(id))
+                .filter(robot -> robot.getId() == id)
                 .findFirst();
     }
 
     @Override
-    public int deletePersonById(UUID id) {
-        Optional<Robot> personMaybe = selectPersonById(id);
+    public int deleteRobotById(int id) {
+        Optional<Robot> personMaybe = selectRobotById(id);
         if (personMaybe.isEmpty()) {
             return 0;
         }
@@ -42,12 +44,12 @@ public class FakeRobotDataAccessService implements RobotDao {
     }
 
     @Override
-    public int updatePersonById(UUID id, Robot update) {
-        return selectPersonById(id)
+    public int updateRobotById(int id, Robot update) {
+        return selectRobotById(id)
                 .map(robot -> {
                     int indexOfPersonToUpdate = DB.indexOf(robot);
                     if (indexOfPersonToUpdate >= 0) {
-                        DB.set(indexOfPersonToUpdate, new Robot(id, update.getName()));
+                        DB.set(indexOfPersonToUpdate, new Robot(id, update.getName(),update.getHp(),update.getAttck()));
                         return 1;
                     }
                     return 0;
