@@ -1,11 +1,10 @@
 package com.example.WebSocket;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.util.HtmlUtils;
+
 import java.util.Random;
 
 @Log4j2
@@ -15,7 +14,6 @@ public class GreetingController {
     public class Robot {
         int hp = 100;
         int attack = 10;
-
 
     }
 
@@ -32,36 +30,35 @@ public class GreetingController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public Greeting greeting(HelloMessage message) throws Exception {
+    public Greeting greeting(SelectEnemy message) throws Exception {
         log.info("ok");
-        String bot = bot(message.getName());
+        String bot = bot(message.getEnemy(),message.getSelectRobot());
         return new Greeting(bot + " " + botRandomAttack());
     }
 
-
     //@SendTo("/topic/greetings")
-    public String bot(String message) {
+    public String bot(int enemy, int robot) {
 
 
         String result = "";
 
-        switch (message) {
-            case "1":
+        switch (enemy) {
+            case 1:
                 robot1.hp -= myAttack;
                 result = "robot1 hp: " + robot1.hp;
                 break;
-            case "2":
+            case 2:
                 robot2.hp -= myAttack;
                 result = "robot2 hp: " +robot2.hp;
                 break;
-            case "3":
+            case 3:
                 robot3.hp -= myAttack;
                 result = "robot3 hp: " + robot3.hp;
                 break;
         }
 
 
-        return "System: " + result;
+        return result;
     }
 
     public String botRandomAttack() {
